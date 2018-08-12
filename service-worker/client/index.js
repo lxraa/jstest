@@ -1,3 +1,14 @@
+let origin;
+let _DEBUG = false;
+(function setOrigin(){
+	if(_DEBUG){
+		origin = "http://127.0.0.1:3333";
+	}
+	else{
+		origin = "https://jquery.website:3333"
+	}
+})();
+
 
 function urlB64ToUint8Array(base64_string){
 	// 补全等号
@@ -25,9 +36,9 @@ function sendSubscriptionToServer(subscription){
 	subscription_object.p256dh = ArraybufferToEncodedBase64(subscription.getKey("p256dh"));
 	subscription_object.auth = ArraybufferToEncodedBase64(subscription.getKey("auth"));
 	console.log(subscription_object);
-	let url = "http://localhost:3333/setSubscription"
+	let url = origin + "/setSubscription"
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST","http://localhost:3333/setSubscription");
+	xhr.open("POST",origin + "/setSubscription");
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	let data = `auth=${subscription_object.auth}&p256dh=${subscription_object.p256dh}&endpoint=${subscription_object.endpoint}`;
 	console.log(data);
