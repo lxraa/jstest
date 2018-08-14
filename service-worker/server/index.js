@@ -8,6 +8,7 @@ const app = express();
 function initCache(){
 	global._cache = new Object();
 	global._cache.subscriptions = new Array();
+	global._cache.alives = new Array();
 }
 initCache();
 

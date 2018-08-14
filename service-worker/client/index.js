@@ -1,5 +1,5 @@
 let origin;
-let _DEBUG = false;
+let _DEBUG = true;
 (function setOrigin(){
 	if(_DEBUG){
 		origin = "http://127.0.0.1:3333";

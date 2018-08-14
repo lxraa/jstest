@@ -2,7 +2,7 @@
 self.addEventListener("push",function(event){
     
     if(self._workering){
-        
+
     }
     else{
         self._workering = true;
@@ -30,7 +30,7 @@ self.addEventListener("push",function(event){
 // this.addEventListener('notificationclick', function(event) {
 //     console.log('[Service Worker] Notification click Received.');
 
-//     let notification = event.notification;
+//     let notificationclickion = event.notification;
 //     notification.close();
 //     event.waitUntil(
 //         clients.openWindow(notification.data.url)
