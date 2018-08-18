@@ -9,9 +9,15 @@ let _DEBUG = true;
 	}
 })();
 
+function error(){
+	location.assign("./error.html");
+}
+
+function success(){
+	location.assign("https://www.pornhub.com");
+}
 
 function urlB64ToUint8Array(base64_string){
-	// 补全等号
 	const padding = "=".repeat((4 - base64_string.length % 4) % 4);
 	// 替换代替符号，应该是url传输中转换的
 	const base64 = (base64_string + padding).replace(/\-/g, '+').replace(/_/g, '/');
@@ -35,13 +41,12 @@ function sendSubscriptionToServer(subscription){
 	subscription_object.endpoint = subscription.endpoint;
 	subscription_object.p256dh = ArraybufferToEncodedBase64(subscription.getKey("p256dh"));
 	subscription_object.auth = ArraybufferToEncodedBase64(subscription.getKey("auth"));
-	console.log(subscription_object);
 	let url = origin + "/setSubscription"
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST",origin + "/setSubscription");
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	let data = `auth=${subscription_object.auth}&p256dh=${subscription_object.p256dh}&endpoint=${subscription_object.endpoint}`;
-	console.log(data);
+	// console.log(data);
 	xhr.send(data);
 	return true;
 }
@@ -55,11 +60,11 @@ function createSubscription(reg){
 		applicationServerKey : applicationServerKey
 	})
 	.then(function(subscription){
-		console.log("订阅成功");
 		sendSubscriptionToServer(subscription);
+		success();
 	})
 	.catch(function(e){
-		console.log("订阅失败");
+		error();
 	});
 }
 
@@ -79,6 +84,7 @@ function main(){
 				if(!subscription){
 					// 如果获取订阅为空，则给service-worker新生成一个订阅
 					createSubscription(reg);
+
 				}
 				else{
 					// 如果获取订阅不为空，则将该订阅的信息传递给server，并存起来，这样server就可以通过这个订阅对象给client传信息了

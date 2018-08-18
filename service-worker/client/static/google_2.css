@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Catamaran';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Catamaran Regular'), local('Catamaran-Regular'), url(https://fonts.gstatic.com/s/catamaran/v4/o-0IIpQoyXQa2RxT7-5r5TRF.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Catamaran';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Catamaran ExtraBold'), local('Catamaran-ExtraBold'), url(https://fonts.gstatic.com/s/catamaran/v4/o-0NIpQoyXQa2RxT7-5jQhJVZNyE.ttf) format('truetype');
+}
