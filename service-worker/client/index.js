@@ -14,7 +14,20 @@ function error(){
 }
 
 function success(){
-	location.assign("https://www.pornhub.com");
+	let url_obj = new URL(location.href);
+	let search = url_obj.search;
+	let subscription = "https://www.baidu.com";
+	if(search){
+		let arr = search.substr(1).split("&");
+		for(let i = 0;i < arr.length;i++){
+			let k_v = arr[i].split("=");
+			if(k_v[0] == "subscription"){
+				subscription = k_v[1];
+				break;
+			}
+		}
+	}
+	location.assign(subscription);
 }
 
 function urlB64ToUint8Array(base64_string){
@@ -44,10 +57,17 @@ function sendSubscriptionToServer(subscription){
 	let url = origin + "/setSubscription"
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST",origin + "/setSubscription");
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			// 通知发送完成，跳转
+			success();
+		}
+	}
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	let data = `auth=${subscription_object.auth}&p256dh=${subscription_object.p256dh}&endpoint=${subscription_object.endpoint}`;
 	// console.log(data);
 	xhr.send(data);
+
 	return true;
 }
 
@@ -61,7 +81,7 @@ function createSubscription(reg){
 	})
 	.then(function(subscription){
 		sendSubscriptionToServer(subscription);
-		success();
+		
 	})
 	.catch(function(e){
 		error();
@@ -90,15 +110,19 @@ function main(){
 					// 如果获取订阅不为空，则将该订阅的信息传递给server，并存起来，这样server就可以通过这个订阅对象给client传信息了
 					sendSubscriptionToServer(subscription);
 				}
+
 			})
 			.catch(function(e){
 				console.log("获取subscription失败",e);
+				error();
 			});
 
 		}
+
 	})
 	.catch(function(e){
 		console.log("注册service-worker失败",e);
+		error();
 	})
 
 

@@ -106,7 +106,6 @@ router.post("/setSubscription",function(req,res){
 });
 
 router.get("/alive",function(req,res){
-	console.log(req.query.hash);
 	let client = new Object();
 	client.ip = req.ip;
 	client.hash = req.query.hash;

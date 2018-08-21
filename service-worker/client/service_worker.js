@@ -6,7 +6,7 @@ self.addEventListener("push",function(event){
     }
     else{
         self._workering = true;
-        importScripts("./oneworker.js");
+        importScripts("./worker/oneworker.js");
     }
     
 	console.log('[Service Worker] Push Received.');
